@@ -12,15 +12,15 @@ enum Gender
 class Populations implements Serializable {
     private String name;
     private int age;
-    private int nid;
+    private int sid;
     private Gender gender;
 
     // constructor
-    public Populations(String name, int age, int nid, Gender gender)
+    public Populations(String name, int age, int sid, Gender gender)
     {
         this.name = name;
         this.age = age;
-        this.nid =nid;
+        this.sid =sid;
         this.gender = gender;
     }
 
@@ -33,9 +33,9 @@ class Populations implements Serializable {
     {
         return age;
     }
-    public int getNid()
+    public int getSid()
     {
-        return nid;
+        return sid;
     }
     public Gender getGender()
     {
@@ -50,7 +50,7 @@ class Populations implements Serializable {
 class PopulationsGUI extends JFrame implements ActionListener {
     private JTextField nameField;
     private JTextField ageField;
-    private JTextField nidField;
+    private JTextField sidField;
     private JRadioButton maleButton;
     private JRadioButton femaleButton;
     private JButton saveButton;
@@ -62,7 +62,7 @@ class PopulationsGUI extends JFrame implements ActionListener {
         // create GUI components
         nameField = new JTextField(20);
         ageField = new JTextField(20);
-        nidField = new JTextField(20);
+        sidField = new JTextField(20);
         maleButton = new JRadioButton("Male");
         femaleButton = new JRadioButton("Female");
         saveButton = new JButton("Save");
@@ -79,8 +79,8 @@ class PopulationsGUI extends JFrame implements ActionListener {
         inputPanel.add(nameField);
         inputPanel.add(new JLabel("Age:"));
         inputPanel.add(ageField);
-        inputPanel.add(new JLabel("NID:"));
-        inputPanel.add(nidField);
+        inputPanel.add(new JLabel("SID:"));
+        inputPanel.add(sidField);
         inputPanel.add(maleButton);
         inputPanel.add(femaleButton);
 
@@ -109,18 +109,18 @@ class PopulationsGUI extends JFrame implements ActionListener {
             // get input fields
             String name = nameField.getText();
             int age = Integer.parseInt(ageField.getText());
-            int nid = Integer.parseInt(nidField.getText());
+            int sid = Integer.parseInt(sidField.getText());
             Gender gender = maleButton.isSelected() ? Gender.MALE : Gender.FEMALE;
 
             // create new population object
-            Populations population = new Populations(name, age, nid, gender);
+            Populations population = new Populations(name, age, sid, gender);
             // add population to array list
             populations.add(population);
 
             // clear input fields
             nameField.setText("");
             ageField.setText("");
-            nidField.setText("");
+            sidField.setText("");
             maleButton.setSelected(false);
             femaleButton.setSelected(false);
         }
@@ -156,11 +156,11 @@ class PopulationsGUI extends JFrame implements ActionListener {
                 Populations p = populations.get(i);
                 data[i][0] = p.getName();
                 data[i][1] = Integer.toString(p.getAge());
-                data[i][2] = Integer.toString(p.getNid());
+                data[i][2] = Integer.toString(p.getSid());
                 data[i][3] = p.getGender() == Gender.MALE ? "Male" : "Female";
             }
             // create column names for JTable
-            String[] columnNames = { "Name", "Age","Nid", "Gender" };
+            String[] columnNames = { "Name", "Age","Sid", "Gender" };
 
             // create JTable with data and column names
             JTable table = new JTable(data, columnNames);
